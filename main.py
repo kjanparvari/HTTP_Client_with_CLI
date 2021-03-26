@@ -57,7 +57,29 @@ class HTTPRequest:
             print(f"\n\nStatus: {response.reason} {response.status_code}")
             for key, value in response.headers.items():
                 print(f"{key}: {value}")
-            print("\n\n", final_data.decode())
+
+            import time
+            if response.headers["Content-Type"] == "image/png":
+                filename = "image_" + str(time.time()) + ".png"
+                with open(f".\\{filename}", "wb") as f:
+                    f.write(final_data)
+            elif response.headers["Content-Type"] == "image/jpg" or response.headers["Content-Type"] == "image/jpeg":
+                filename = "image_" + str(time.time()) + ".jpg"
+                with open(f".\\{filename}", "wb") as f:
+                    f.write(final_data)
+            elif response.headers["Content-Type"] == "application/pdf":
+                filename = "pdf_" + str(time.time()) + ".pdf"
+                with open(f".\\{filename}", "wb") as f:
+                    f.write(final_data)
+            elif response.headers["Content-Type"] == "video/mp4":
+                filename = "video_" + str(time.time()) + ".mp4"
+                with open(f".\\{filename}", "wb") as f:
+                    f.write(final_data)
+            else:
+                try:
+                    print("\n\n", final_data.decode())
+                except UnicodeDecodeError:
+                    print("\n\n", final_data)
         except requests.exceptions.ConnectionError as e:
             self.error("connection failed")
 
@@ -243,7 +265,7 @@ def main():
     req.body = (args.json, "json")
     req.body = (args.file, "octet-stream")
     req.timeout = args.timeout
-    print(req, "\n\n\n")
+    # print(req, "\n\n\n")
     req.send()
 
 
