@@ -47,4 +47,4 @@ This project demonstrates the implementation of an HTTP client, providing insigh
 This project was developed as part of the **Computer Networks course** at **Amirkabir University of Technology (AUT)**.  
 
 ## License  
-This project is licensed under the AUT License.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.  
